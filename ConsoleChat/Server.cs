@@ -48,7 +48,8 @@ namespace ConsoleChat
                 {                                                      //from reading if null.
                     var message = await sr.ReadLineAsync();
                     Read(message);
-                }
+            }
+
         }
 
         public void ListenLocal()
@@ -60,8 +61,8 @@ namespace ConsoleChat
         public void Send(string message)
         {
             Console.WriteLine(message);
-            /*
-            using (var sw = new StreamWriter(Client.GetStream()))
+            
+            /*using (var sw = new StreamWriter(Client.GetStream()))
             {
                 sw.WriteLine(message);
             }*/

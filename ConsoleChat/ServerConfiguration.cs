@@ -8,19 +8,40 @@ namespace ConsoleChat
 {
     public class ServerConfiguration : IConfigurable
     {
-        public IPAddress ServerIPAddress;
-        public int ServerConnectionPort;
+        private IPAddress _iPAddress;
+        private int _port;
+        private IPEndPoint _iPEndPoint;
+        private int _bufferSize;
         //public TcpListener ServerListener;
 
         public ServerConfiguration()
         {
-            this.ServerIPAddress = IPAddress.Parse("127.0.0.1");
-            this.ServerConnectionPort = 80;
+            this._iPAddress = IPAddress.Parse("127.0.0.1");
+            this._port = 8008;
+            this._iPEndPoint = new IPEndPoint(_iPAddress, _port);
+            this._bufferSize = 1024;
+        }
+
+        public ServerConfiguration(string ipAddress, int port)
+        {
+            this._iPAddress = IPAddress.Parse(ipAddress);
+            this._port = port;
+        }
+
+        public IPEndPoint IPEndPoint()
+        {
+            return _iPEndPoint;
+        }
+
+        public int BufferSize()
+        {
+            return _bufferSize;
         }
 
         public dynamic Initialize()
         {
-            return new TcpListener(this.ServerIPAddress, this.ServerConnectionPort);
+            return this;
+            //return new TcpListener(this.ServerIPAddress, this.ServerConnectionPort);
         }
 
         public IConfigurable Load()
@@ -32,10 +53,10 @@ namespace ConsoleChat
                 {
                     settings.Add(streamreader.ReadLine());
                 }
-                this.ServerIPAddress = IPAddress.Parse(settings[0].Substring(settings[0].IndexOf(":") + 1));
-                this.ServerConnectionPort = Convert.ToInt16(settings[1].Substring(settings[1].IndexOf(":") + 1));
+                this._iPAddress = IPAddress.Parse(settings[0].Substring(settings[0].IndexOf(":") + 1));
+                this._port = Convert.ToInt16(settings[1].Substring(settings[1].IndexOf(":") + 1));
             }
-            Console.WriteLine($"Loaded Server Configuration: \r\nIP Address: {this.ServerIPAddress} \r\nPort: {this.ServerConnectionPort}");
+            Console.WriteLine($"Loaded Server Configuration: \r\nIP Address: {this._iPAddress} \r\nPort: {this._port}");
             return this;
         }
 
@@ -51,7 +72,7 @@ namespace ConsoleChat
 
         public override string ToString()
         {
-            return this.ServerIPAddress.ToString();
+            return this._iPAddress.ToString();
         }
     }
 }

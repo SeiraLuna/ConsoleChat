@@ -4,7 +4,7 @@ namespace ConsoleChat
 {
     public abstract class Message
     {
-        private Client Client;
+        //private Client Client;
 
         public abstract void Open();
     }

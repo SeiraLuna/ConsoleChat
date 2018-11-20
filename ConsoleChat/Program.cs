@@ -10,7 +10,7 @@ namespace ConsoleChat
     {
         static void Main(string[] args)
         {
-            var Server = new Server(new ServerConfiguration().Load());
+            var Server = new Server(new ServerConfiguration());
             Server.Initialize();
 
             Console.ReadKey();

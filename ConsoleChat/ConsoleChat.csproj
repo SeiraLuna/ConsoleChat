@@ -42,8 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
-    <Compile Include="ClientConfiguartion.cs" />
     <Compile Include="IConfigurable.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Program.cs" />
